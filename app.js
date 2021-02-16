@@ -10,7 +10,11 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const cors = require('cors');
-const exphbs = require('express-handlebars');
+
+const ejs = require('ejs');
+// const exphbs = require('express-handlebars');
+
+const viewRouter = require('./routes/viewRoutes');
 
 // Start express app
 const app = express();
@@ -18,21 +22,24 @@ const app = express();
 app.enable('trust proxy');
 
 // Handlebars
-app.engine('.hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }));
-app.set('view engine', '.hbs');
+// app.set('view engine', '.hbs');
+// app.engine('.hbs', exphbs({ defaultLayout: 'index', extname: '.hbs' }));
+
+// Ejs
+app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // 1) GLOBAL MIDDLEWARES
 // Implement CORS
-app.use(cors());
+// app.use(cors());
 
-app.options('*', cors());
+// app.options('*', cors());
 
 // Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Set security HTTP headers
-app.use(helmet());
+// app.use(helmet());
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
@@ -65,6 +72,7 @@ app.use((req, res, next) => {
 });
 
 // 3) ROUTES
+app.use('/', viewRouter);
 
 // TODO add page later
 // app.all('*', (req, res, next) => {
