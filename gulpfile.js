@@ -5,6 +5,9 @@ const cssnano = require('cssnano');
 const terser = require('gulp-terser');
 const browsersync = require('browser-sync').create();
 const purgecss = require('gulp-purgecss');
+const autoprefixer = require('autoprefixer');
+const tailwind = require('tailwindcss');
+// const sourcemaps = require('gulp-sourcemaps');
 
 // Sass Task
 function scssTask() {
@@ -13,7 +16,7 @@ function scssTask() {
     // .pipe(sass())
     // .pipe(postcss([cssnano()]))
     // .pipe(dest('public/css', { sourcemaps: '.' }))
-    src('scss/style.scss', { sourcemaps: false })
+    src(['scss/style.scss', 'scss/bootstrap/bootstrap.scss'], { sourcemaps: false })
       .pipe(sass())
       // .pipe(
       //   purgecss({
@@ -23,6 +26,13 @@ function scssTask() {
       // .pipe(postcss([cssnano()]))
       .pipe(dest('public/css'))
   );
+}
+
+// Tailwind Task
+function twTask() {
+  return src(['src/styles-tw.css'], { sourcemaps: false })
+    .pipe(postcss([tailwind(), autoprefixer()]))
+    .pipe(dest('public/css'));
 }
 
 // Browsersync Tasks
@@ -41,8 +51,10 @@ function browsersyncReload(cb) {
 // Watch Task
 function watchTask() {
   watch('views/**/*.ejs', browsersyncReload);
+  watch('public/**/*.html', browsersyncReload);
+  watch(['src/**/*.css'], series(twTask, browsersyncReload));
   watch(['scss/**/*.scss'], series(scssTask, browsersyncReload));
 }
 
 // Default Gulp Task
-exports.default = series(scssTask, browsersyncServe, watchTask);
+exports.default = series(scssTask, twTask, browsersyncServe, watchTask);

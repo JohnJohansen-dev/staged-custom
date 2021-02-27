@@ -1,0 +1,49 @@
+@import 'bootstrap/_functions';
+@import 'bootstrap/_variables';
+@import 'bootstrap/_mixins';
+
+/* ----------------------------------------------------------------
+    Variables
+-----------------------------------------------------------------*/
+
+// Typography
+$font-base: 'Poppins', sans-serif;
+$font-body: $font-base;
+$font-headings: $font-base;
+$font-paragraph: 'Nunito', sans-serif;
+$font-menu: $font-base;
+$font-menu-dropdown: $font-base;
+
+// Icons
+$font-icon-fontawesome: 'Font Awesome 5 Free';
+
+// Base Colors
+$color-theme: #ad0b41;
+$body-bg: #ffffff; // White
+$color-body: #484848;
+$color-white: #ffffff;
+$color-light: #999999;
+$color-grey: #cecece;
+$color-black: #000000;
+$dark-grey: #262626;
+$background-white: #fff;
+$background-dark: #181818;
+$background-theme: $color-theme;
+$color-heading: $dark;
+$paragraph-color: #777777;
+
+// Header
+$header-height: 80px;
+$header-line-height: 80px;
+
+// Layout
+$layout-boxed-width: 1200px;
+$layout-modern-width: 1500px;
+
+// Layout Breakpoints
+$breakpoint-xs: 0px; // Extra small devices
+$breakpoint-sm: 576px; // Small devices (landscape phones, 576px and up)
+$breakpoint-md: 768px; // Medium devices (tablets, 768px and up)
+$breakpoint-lg: 992px; // Large devices (desktops, 992px and up)
+$breakpoint-xl: 1200px; // Extra large devices (large desktops, 1200px and up)
+$breakpoint-xxl: 1400px; // Extra extra large devices (extra large desktops, 1400px and up)
